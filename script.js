@@ -1,8 +1,6 @@
-// Game configuration
 const XP_PER_LEVEL = 100
 const COINS_REWARD = 2
 
-// Game data
 const LEVELS = [
   {
     id: 1,
@@ -131,7 +129,6 @@ const LEVELS = [
   },
 ]
 
-// Game state
 let gameProgress = {
   name: "",
   xp: 0,
@@ -147,7 +144,6 @@ let showFeedback = false
 let quizCompleted = false
 let correctAnswers = 0
 
-// DOM elements
 const elements = {
   playerName: document.getElementById("player-name"),
   xpDisplay: document.getElementById("xp-display"),
@@ -182,7 +178,6 @@ const elements = {
   masterAchievement: document.getElementById("master-achievement"),
 }
 
-// Initialize the game
 function init() {
   loadProgress()
   setupEventListeners()
@@ -194,7 +189,6 @@ function init() {
   }
 }
 
-// Load progress from localStorage
 function loadProgress() {
   const saved = localStorage.getItem("codecity_progress_v1")
   if (saved) {
@@ -202,15 +196,12 @@ function loadProgress() {
   }
 }
 
-// Save progress to localStorage
 function saveProgress() {
   localStorage.setItem("codecity_progress_v1", JSON.stringify(gameProgress))
   updateUI()
 }
 
-// Setup event listeners
 function setupEventListeners() {
-  // Name dialog
   elements.studentNameInput.addEventListener("input", (e) => {
     elements.startBtn.disabled = !e.target.value.trim()
   })
@@ -223,21 +214,17 @@ function setupEventListeners() {
 
   elements.startBtn.addEventListener("click", handleNameSubmit)
 
-  // Config dialog
   elements.configBtn.addEventListener("click", () => showModal("configDialog"))
   elements.closeConfig.addEventListener("click", () => hideModal("configDialog"))
   elements.resetProgress.addEventListener("click", resetProgress)
   elements.addCoins.addEventListener("click", addTestCoins)
   elements.changeName.addEventListener("click", changeName)
 
-  // Results
   elements.resultsBtn.addEventListener("click", () => showFinalResults())
   elements.closeResults.addEventListener("click", () => hideModal("finalResults"))
 
-  // Mission dialog
   elements.closeMission.addEventListener("click", () => hideModal("missionDialog"))
 
-  // Close modals on backdrop click
   document.querySelectorAll(".modal").forEach((modal) => {
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
@@ -247,7 +234,6 @@ function setupEventListeners() {
   })
 }
 
-// Modal functions
 function showModal(modalName) {
   elements[modalName].classList.add("show")
 }
@@ -256,7 +242,6 @@ function hideModal(modalName) {
   elements[modalName].classList.remove("show")
 }
 
-// Handle name submission
 function handleNameSubmit() {
   const name = elements.studentNameInput.value.trim()
   if (name) {
@@ -267,7 +252,6 @@ function handleNameSubmit() {
   }
 }
 
-// Reset progress
 function resetProgress() {
   localStorage.removeItem("codecity_progress_v1")
   gameProgress = { name: "", xp: 0, coins: 0, completed: [], badges: [] }
@@ -276,35 +260,28 @@ function resetProgress() {
   updateUI()
 }
 
-// Add test coins
 function addTestCoins() {
   gameProgress.coins += 5
   saveProgress()
 }
 
-// Change name
 function changeName() {
   elements.studentNameInput.value = gameProgress.name
   hideModal("configDialog")
   showModal("nameDialog")
 }
 
-// Update UI
 function updateUI() {
-  // Update header
   elements.playerName.textContent = gameProgress.name
   elements.xpDisplay.textContent = gameProgress.xp
   elements.coinsDisplay.textContent = gameProgress.coins
   elements.badgesDisplay.textContent = gameProgress.badges.length
 
-  // Update levels grid
   renderLevels()
 
-  // Update badges section
   renderBadges()
 }
 
-// Render levels
 function renderLevels() {
   elements.levelsGrid.innerHTML = ""
 
@@ -346,7 +323,6 @@ function renderLevels() {
   })
 }
 
-// Render badges
 function renderBadges() {
   if (gameProgress.badges.length > 0) {
     elements.badgesSection.classList.remove("hidden")
@@ -363,7 +339,6 @@ function renderBadges() {
   }
 }
 
-// Level utility functions
 function isLevelUnlocked(levelId) {
   if (levelId === 1) return true
   return gameProgress.completed.includes(levelId - 1)
@@ -373,7 +348,6 @@ function isLevelCompleted(levelId) {
   return gameProgress.completed.includes(levelId)
 }
 
-// Open mission
 function openMission(levelId) {
   currentLevel = LEVELS.find((level) => level.id === levelId)
   currentQuestionIndex = 0
@@ -389,7 +363,6 @@ function openMission(levelId) {
   showModal("missionDialog")
 }
 
-// Render mission content
 function renderMissionContent() {
   if (!quizCompleted) {
     const question = currentLevel.questions[currentQuestionIndex]
@@ -465,13 +438,11 @@ function renderMissionContent() {
   }
 }
 
-// Handle answer selection
 function handleAnswerSelect(answerIndex) {
   if (showFeedback) return
 
   selectedAnswer = answerIndex
 
-  // Update button styles
   document.querySelectorAll(".option-btn").forEach((btn, index) => {
     btn.classList.remove("bg-blue-600", "border-blue-500")
     if (index === answerIndex) {
@@ -479,11 +450,9 @@ function handleAnswerSelect(answerIndex) {
     }
   })
 
-  // Enable submit button
   document.getElementById("submit-answer").disabled = false
 }
 
-// Submit answer
 function submitAnswer() {
   if (selectedAnswer === null || !currentLevel) return
 
@@ -494,7 +463,6 @@ function submitAnswer() {
 
   showFeedback = true
 
-  // Update button styles to show correct/incorrect
   document.querySelectorAll(".option-btn").forEach((btn, index) => {
     btn.disabled = true
     if (index === selectedAnswer) {
@@ -508,7 +476,6 @@ function submitAnswer() {
     }
   })
 
-  // Show feedback
   const feedbackContainer = document.getElementById("feedback-container")
   feedbackContainer.className = `mt-4 p-3 rounded-lg ${isCorrect ? "bg-green-600/20 text-green-300" : "bg-red-600/20 text-red-300"}`
   feedbackContainer.textContent = isCorrect
@@ -516,7 +483,6 @@ function submitAnswer() {
     : "Incorrecto. La respuesta correcta se muestra en verde."
   feedbackContainer.classList.remove("hidden")
 
-  // Hide submit button
   document.getElementById("submit-answer").style.display = "none"
 
   setTimeout(() => {
@@ -528,7 +494,6 @@ function submitAnswer() {
     } else {
       quizCompleted = true
 
-      // Award rewards if all answers correct and not already completed
       if (correctAnswers === currentLevel.questions.length && !isLevelCompleted(currentLevel.id)) {
         gameProgress.xp += XP_PER_LEVEL
         gameProgress.coins += COINS_REWARD
@@ -540,7 +505,7 @@ function submitAnswer() {
           setTimeout(() => {
             hideModal("missionDialog")
             showFinalResults()
-          }, 3000) // Wait 3 seconds to show completion celebration first
+          }, 3000)
         }
       }
 
@@ -549,13 +514,11 @@ function submitAnswer() {
   }, 2000)
 }
 
-// Close mission dialog
 function closeMissionDialog() {
   hideModal("missionDialog")
   currentLevel = null
 }
 
-// Show final results
 function showFinalResults() {
   const completionPercentage = (gameProgress.completed.length / LEVELS.length) * 100
 
@@ -564,7 +527,6 @@ function showFinalResults() {
   elements.progressBar.style.width = `${completionPercentage}%`
   elements.completionText.textContent = `${completionPercentage.toFixed(0)}% de CodeCity Completado`
 
-  // Render final badges
   elements.finalBadges.innerHTML = ""
   gameProgress.badges.forEach((badge) => {
     const badgeElement = document.createElement("div")
@@ -576,7 +538,6 @@ function showFinalResults() {
     elements.finalBadges.appendChild(badgeElement)
   })
 
-  // Show master achievement if all levels completed
   if (gameProgress.completed.length === LEVELS.length) {
     elements.masterAchievement.classList.remove("hidden")
     showConfetti()
@@ -587,7 +548,6 @@ function showFinalResults() {
   showModal("finalResults")
 }
 
-// Show confetti animation
 function showConfetti() {
   elements.confettiContainer.classList.remove("hidden")
   elements.confettiContainer.innerHTML = ""
@@ -606,5 +566,4 @@ function showConfetti() {
   }, 5000)
 }
 
-// Initialize the game when DOM is loaded
 document.addEventListener("DOMContentLoaded", init)

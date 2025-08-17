@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCity - Programación Orientada a Objetos</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Removed external Lucide dependencies -->
 </head>
 <body>
     <div id="app" class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <!-- Header -->
+
         <header class="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700 p-4">
             <div class="max-w-6xl mx-auto flex items-center justify-between">
                 <div>
@@ -19,7 +18,7 @@
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-4">
                         <div class="flex items-center gap-1">
-                            <!-- Replaced Lucide icons with embedded SVGs -->
+
                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                             </svg>
@@ -70,7 +69,6 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="max-w-6xl mx-auto p-6">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
@@ -84,12 +82,10 @@
                 </p>
             </div>
 
-            <!-- Level Grid -->
             <div id="levels-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Levels will be populated by JavaScript -->
+                
             </div>
 
-            <!-- Badges Section -->
             <div id="badges-section" class="bg-slate-800/30 rounded-lg p-6 hidden">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
@@ -105,13 +101,12 @@
                     Tus Insignias
                 </h3>
                 <div id="badges-container" class="flex flex-wrap gap-3">
-                    <!-- Badges will be populated by JavaScript -->
+
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Name Dialog -->
     <div id="name-dialog" class="modal">
         <div class="modal-content2 bg-slate-800 border-slate-700">
             <h2 class="text-xl font-bold mb-2">¡Bienvenido a CodeCity!</h2>
@@ -126,7 +121,6 @@
         </div>
     </div>
 
-    <!-- Config Dialog -->
     <div id="config-dialog" class="modal">
         <div class="modal-content2 bg-slate-800 border-slate-700">
             <div class="flex justify-between items-center mb-4">
@@ -145,7 +139,6 @@
         </div>
     </div>
 
-    <!-- Mission Dialog -->
     <div id="mission-dialog" class="modal">
         <div class="modal-content2 bg-slate-800 border-slate-700 max-w-2xl">
             <div class="flex justify-between items-center mb-4">
@@ -160,12 +153,11 @@
                 </button>
             </div>
             <div id="mission-content">
-                <!-- Mission content will be populated by JavaScript -->
+                
             </div>
         </div>
     </div>
 
-    <!-- Final Results Dialog -->
     <div id="final-results" class="modal">
         <div id="confetti-container" class="fixed inset-0 pointer-events-none hidden"></div>
         <div class="modal-content bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-2xl border border-slate-700 max-w-2xl bounce-in">
@@ -193,7 +185,7 @@
                 <div class="space-y-4">
                     <h3 class="text-xl font-bold text-slate-200">Insignias Obtenidas</h3>
                     <div id="final-badges" class="flex flex-wrap justify-center gap-3">
-                        <!-- Final badges will be populated by JavaScript -->
+
                     </div>
                 </div>
                 <div id="master-achievement" class="bg-gradient-to-r from-yellow-500/20 to-pink-500/20 p-4 rounded-lg border border-yellow-500/30 hidden">
@@ -215,7 +207,6 @@
         </div>
     </div>
 
-    <!-- Removed external Lucide script dependency -->
     <script src="script.js"></script>
 </body>
 </html>
